@@ -18,7 +18,7 @@ class User extends Authenticatable
     use Searchable;
     use HasApiTokens;
 
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['name', 'email', 'password', 'is_personal', 'personal'];
 
     protected $searchableFields = ['*'];
 
@@ -31,5 +31,15 @@ class User extends Authenticatable
     public function isSuperAdmin(): bool
     {
         return $this->hasRole('super-admin');
+    }
+
+    public function student()
+    {
+        return $this->hasOne(Student::class, 'personal');
+    }
+
+    public function lecture()
+    {
+        return $this->hasOne(Lecture::class, 'personal');
     }
 }

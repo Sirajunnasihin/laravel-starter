@@ -51,6 +51,7 @@ Route::prefix('/')
         Route::resource('permissions', PermissionController::class);
 
         Route::resource('faculties', FacultyController::class);
+        Route::resource('classrooms', \App\Http\Controllers\ClassroomController::class);
         Route::resource('majors', MajorController::class);
         Route::resource('users', UserController::class);
     });

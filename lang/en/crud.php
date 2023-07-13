@@ -84,4 +84,17 @@ return [
             'name' => 'Name',
         ],
     ],
+
+    'classrooms' => [
+        'name' => 'Classrooms',
+        'index_title' => 'Classrooms List',
+        'new_title' => 'New Classroom',
+        'create_title' => 'Create Classroom',
+        'edit_title' => 'Edit Classroom',
+        'show_title' => 'Show Classroom',
+        'inputs' => [
+            'name' => 'Name',
+            'desc' => 'Desc',
+        ],
+    ],
 ];

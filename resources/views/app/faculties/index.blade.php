@@ -1,54 +1,48 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.faculties.index_title')
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <x-partials.card>
-                <div class="mb-5 mt-4">
-                    <div class="flex flex-wrap justify-between">
-                        <div class="md:w-1/2">
-                            <form>
-                                <div class="flex items-center w-full">
-                                    <x-inputs.text
-                                        name="search"
-                                        value="{{ $search ?? '' }}"
-                                        placeholder="{{ __('crud.common.search') }}"
-                                        autocomplete="off"
-                                    ></x-inputs.text>
-
-                                    <div class="ml-1">
-                                        <button
-                                            type="submit"
-                                            class="button button-primary"
-                                        >
-                                            <i class="icon ion-md-search"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="md:w-1/2 text-right">
-                            @can('create', App\Models\Faculty::class)
-                            <a
-                                href="{{ route('faculties.create') }}"
-                                class="button button-primary"
-                            >
+    <div class="app-main__inner">
+        <div class="app-page-title">
+            <div class="page-title-wrapper">
+                <div class="page-title-heading">
+                    <div class="page-title-icon">
+                        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
+                        </i>
+                    </div>
+                    <div>
+                        @lang('crud.faculties.index_title')
+                    </div>
+                </div>
+                <div class="page-title-actions">
+                    <div class="d-inline-block dropdown">
+                        @can('create', App\Models\Faculty::class)
+                            <a href="{{ route('faculties.create') }}" class="btn-shadow button button-primary">
                                 <i class="mr-1 icon ion-md-add"></i>
                                 @lang('crud.common.create')
                             </a>
-                            @endcan
-                        </div>
+                        @endcan
                     </div>
                 </div>
-
-                <div class="block w-full overflow-auto scrolling-touch">
-                    <table class="w-full max-w-full mb-4 bg-transparent">
-                        <thead class="text-gray-700">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-card mb-3 card">
+                    <div class="card-header">
+                        <form>
+                            <div class="flex items-center w-full">
+                                <x-inputs.text name="search" value="{{ $search ?? '' }}" placeholder="{{ __('crud.common.search') }}" autocomplete="off"></x-inputs.text>
+                                <div class="ml-1">
+                                    <button type="submit" class="button button-primary">
+                                        <i class="icon ion-md-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <table class="mb-0 table table-hover table-responsive">
+                            <thead>
                             <tr>
+                                <th scope="col">#</th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.faculties.inputs.name')
                                 </th>
@@ -57,99 +51,64 @@
                                 </th>
                                 <th></th>
                             </tr>
-                        </thead>
-                        <tbody class="text-gray-600">
+                            </thead>
+                            <tbody>
                             @forelse($faculties as $faculty)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-3 text-left">
-                                    {{ $faculty->name ?? '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $faculty->desc ?? '-' }}
-                                </td>
-                                <td
-                                    class="px-4 py-3 text-center"
-                                    style="width: 134px;"
-                                >
-                                    <div
-                                        role="group"
-                                        aria-label="Row Actions"
-                                        class="
-                                            relative
-                                            inline-flex
-                                            align-middle
-                                        "
-                                    >
-                                        @can('update', $faculty)
-                                        <a
-                                            href="{{ route('faculties.edit', $faculty) }}"
-                                            class="mr-1"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="button"
-                                            >
-                                                <i
-                                                    class="icon ion-md-create"
-                                                ></i>
-                                            </button>
-                                        </a>
-                                        @endcan @can('view', $faculty)
-                                        <a
-                                            href="{{ route('faculties.show', $faculty) }}"
-                                            class="mr-1"
-                                        >
-                                            <button
-                                                type="button"
-                                                class="button"
-                                            >
-                                                <i class="icon ion-md-eye"></i>
-                                            </button>
-                                        </a>
-                                        @endcan @can('delete', $faculty)
-                                        <form
-                                            action="{{ route('faculties.destroy', $faculty) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
-                                        >
-                                            @csrf @method('DELETE')
-                                            <button
-                                                type="submit"
-                                                class="button"
-                                            >
-                                                <i
-                                                    class="
-                                                        icon
-                                                        ion-md-trash
-                                                        text-red-600
-                                                    "
-                                                ></i>
-                                            </button>
-                                        </form>
-                                        @endcan
-                                    </div>
-                                </td>
-                            </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <th>#</th>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $faculty->name ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-left">
+                                        {{ $faculty->desc ?? '-' }}
+                                    </td>
+                                    <td class="px-4 py-3 text-center" style="width: 134px;">
+                                        <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
+                                            @can('update', $faculty)
+                                                <a href="{{ route('faculties.edit', $faculty) }}" class="mr-1">
+                                                    <button type="button" class="button">
+                                                        <i class="icon ion-md-create"></i>
+                                                    </button>
+                                                </a>
+                                            @endcan @can('view', $faculty)
+                                                <a href="{{ route('faculties.show', $faculty) }}" class="mr-1">
+                                                    <button type="button" class="button">
+                                                        <i class="icon ion-md-eye"></i>
+                                                    </button>
+                                                </a>
+                                            @endcan @can('delete', $faculty)
+                                                <form action="{{ route('faculties.destroy', $faculty) }}" method="POST" onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="button">
+                                                        <i class="icon ion-md-trash text-red-600"></i>
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </div>
+                                    </td>
+                                </tr>
                             @empty
-                            <tr>
-                                <td colspan="3">
-                                    @lang('crud.common.no_items_found')
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        @lang('crud.common.no_items_found')
+                                    </td>
+                                </tr>
                             @endforelse
-                        </tbody>
-                        <tfoot>
+                            </tbody>
+                            <tfoot>
                             <tr>
                                 <td colspan="3">
-                                    <div class="mt-10 px-4">
-                                        {!! $faculties->render() !!}
+                                    <div class="mt-6 px-2">
+                                        {{ $faculties->links() }}
                                     </div>
                                 </td>
                             </tr>
-                        </tfoot>
-                    </table>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
-            </x-partials.card>
+            </div>
+
         </div>
     </div>
 </x-app-layout>

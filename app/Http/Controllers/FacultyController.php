@@ -95,10 +95,8 @@ class FacultyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(
-        Request $request,
-        Faculty $faculty
-    ): RedirectResponse {
+    public function destroy(Request $request, Faculty $faculty): RedirectResponse
+    {
         $this->authorize('delete', $faculty);
 
         $faculty->delete();
